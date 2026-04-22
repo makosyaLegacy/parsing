@@ -18,12 +18,16 @@ async def main():
             price = soup.find("p", {"class": "Typography ProductPricesVariantB_accented__n2rtH Typography__Heading Typography__Heading_H1"})
             rating = soup.find("p", {"class": "Typography RatingAndReviewsCount_rating__evIGS Typography__Caption Typography__Caption_Bold"})
 
+            specs_data = {}
             specs = soup.find_all("div", class_=re.compile(r"Description_item"))
             for spec in specs:
                 key = spec.find("p", class_=re.compile(r"Description_leftText"))
                 value = spec.find("p", class_=re.compile(r"Description_rightText"))
                 if key and value:
-                    print(f"{key.get_text(strip=True)}: {value.get_text(strip=True)}")
+                    specs_data[key.get_text(strip=True)] = value.get_text(strip=True)
+
+            for key, value in specs_data.items():
+                print(f"{key}: {value}")
 
             print(f"Название: {name.get_text(strip=True)}")
             print(f"Цена: {price.get_text(strip=True)}")
