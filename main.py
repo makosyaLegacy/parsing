@@ -8,7 +8,7 @@ from fake_useragent import UserAgent
 
 BASE_URL = "https://www.technodom.kz/p/noutbuk-16-asus-vivobook-s16-ci5-210h-16-512-ds3607va-rp105-294725"
 REVIEWS_API_URL = "https://www.technodom.kz/_next/data/inpxdjJzMPDbMZ44-hcpJ/almaty/p/noutbuk-16-asus-vivobook-s16-ci5-210h-16-512-ds3607va-rp105-294725/reviews.json?uri=noutbuk-16-asus-vivobook-s16-ci5-210h-16-512-ds3607va-rp105-294725"
-HEADERS = {"User-Agent": UserAgent().random}
+HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
 
 
 async def main():
