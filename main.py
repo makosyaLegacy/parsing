@@ -13,11 +13,11 @@ async def main():
         async with session.get(BASE_URL, headers=HEADERS) as response:
             html = await response.text()
             soup = BS(html, 'html.parser')
+            name = soup.find("h1", {"class": "Typography ProductInfoMobileSmall_title__6HplU Typography__XL"})
+            price = soup.find("p", {"class": "Typography ProductPricesVariantB_accented__n2rtH Typography__Heading Typography__Heading_H1"})
 
-            items =soup.find_all("h1", {"class": "Typography ProductInfoMobileSmall_title__6HplU Typography__XL"})
-            for item in items:
-                print(item.get_text(strip=True))
-
+            print(f"Название: {name.get_text(strip=True)}")
+            print(f"Цена: {price.get_text(strip=True)}")
 
 if __name__ == "__main__":
     asyncio.run(main())
