@@ -4,11 +4,10 @@ import re
 
 import aiohttp
 from bs4 import BeautifulSoup as BS
-from fake_useragent import UserAgent
 
 BASE_URL = "https://www.technodom.kz/p/noutbuk-16-asus-vivobook-s16-ci5-210h-16-512-ds3607va-rp105-294725"
 REVIEWS_API_URL = "https://www.technodom.kz/_next/data/inpxdjJzMPDbMZ44-hcpJ/almaty/p/noutbuk-16-asus-vivobook-s16-ci5-210h-16-512-ds3607va-rp105-294725/reviews.json?uri=noutbuk-16-asus-vivobook-s16-ci5-210h-16-512-ds3607va-rp105-294725"
-HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
+HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"}
 
 
 async def main():
@@ -20,8 +19,8 @@ async def main():
             html = await response.text()
             soup = BS(html, 'html.parser')
 
-            name = soup.find("h1", class_=re.compile(r"ProductInfoMobileSmall_title"))
-            price = soup.find("p", {"class": "Typography ProductPricesVariantB_accented__n2rtH Typography__Heading Typography__Heading_H1"})
+            name = soup.find("h1")
+            price = soup.find("p", class_=re.compile(r"ProductPricesVariantB_accented"))
             rating = soup.find("p", class_=re.compile(r"RatingAndReviewsCount_rating"))
 
             specs_data = {}
@@ -53,6 +52,9 @@ async def main():
 
     final_json = json.dumps(product_data, indent=4, ensure_ascii=False)
     print(final_json)
+
+    with open("technodom_product.json", "w", encoding="utf-8") as file:
+         json.dump(product_data, file, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":
     asyncio.run(main())
